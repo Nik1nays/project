@@ -23,6 +23,7 @@ if __name__ == '__main__':
 
 
 def get_date(user_date: str) -> str:
+    """Функция переделывает дату"""
     return f"{user_date[8:10]}.{user_date[5:7]}.{user_date[:4]}"
 
 if __name__ == '__main__':

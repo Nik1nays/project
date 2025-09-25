@@ -13,9 +13,7 @@ def mask_account_card(user_input: str) -> str:
 
 
 def get_date(date_str: str) -> str:
-    date_obj = datetime.strptime(date_str, "%Y-%m-%dT%H:%M:%S.%f")
-    return date_obj.strftime("%d.%m.%Y")
-
-
-
-
+    if len(date_str) > 0:
+        date_obj = datetime.strptime(date_str, "%Y-%m-%dT%H:%M:%S.%f")
+        return date_obj.strftime("%d.%m.%Y")
+    return print("Неверный формат даты")

@@ -2,36 +2,36 @@ import time
 from functools import wraps
 
 
-def log(filename):
-    def wrapper(funk):
-        @wraps
+def log(filename=None):
+    def wrapper(func):
+        @wraps(func)
         def inner(*args, **kwargs):
             try:
-                start_funk = time.time()
-                result = funk(*args, **kwargs)
-                end_funk = time.time()
-                log_message = f"Функция: {funk.__name__}\n Время начала выполнения функции: {start_funk}\n Время окончания выполнения функции: {end_funk}\n Результат: {result}\n"
+                start_func = time.time()
+                result = func(*args, **kwargs)
+                stop_func = time.time()
+                log_massage = (f'Функция{func.__name__}\nВремя начала функции:{start_func}\n'
+                               f'Время окончания:{stop_func}\nрезультат:{result}')
                 if filename:
-                    with open(filename, "a") as log_file:
-                        log_file.write(log_message)
+                    with open(filename, "a", encoding='utf-8') as log_file:
+                        log_file.write(log_massage)
                 else:
-                    print(log_message)
+                    print(log_massage)
                 return result
-
             except Exception as e:
-                error_message = f"Функция: {funk.__name__}\n Тип ошибки: {e} \n Входные параметры: {args}, {kwargs}\n"
+                error_massage = (f'\nФункция {func.__name__}\n Тип ошибки:{e}\n'
+                                 f'Входные параметры: {args}, {kwargs}')
                 if filename:
-                    with open(filename, "a") as log_file:
-                        log_file.write(error_message)
+                    with open(filename, 'a', encoding='utf-8') as log_file:
+                        log_file.write(error_massage)
                 else:
-                    print(error_message)
+                    print(error_massage)
                 raise
-
         return inner
-
     return wrapper
 
-@log(filename="mylog.txt")
+
+@log()
 def my_function(x, y):
     return x + y
 

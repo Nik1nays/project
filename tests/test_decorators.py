@@ -2,6 +2,7 @@ import pytest
 
 from src.decorators import my_function, log
 
+
 # функция для теста
 def divide_num(a, b):
     return a / b

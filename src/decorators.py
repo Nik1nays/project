@@ -3,6 +3,9 @@ from functools import wraps
 
 
 def log(filename=None):
+    """
+    Декоратор, который автоматически логирует начало и конец функции
+    """
     def wrapper(func):
         @wraps(func)
         def inner(*args, **kwargs):
@@ -11,9 +14,10 @@ def log(filename=None):
                 result = func(*args, **kwargs)
                 stop_func = time.time()
                 log_massage = (
-                    f"Функция{func.__name__}\nВремя начала функции:{start_func}\n"
-                    f"Время окончания:{stop_func}\nрезультат:{result}"
+                    f"{func.__name__} ok"
                 )
+                print(f'Функция выполнялась: {stop_func - start_func}\n'
+                      f'Результат: {result}')
                 if filename:
                     with open(filename, "a", encoding="utf-8") as log_file:
                         log_file.write(log_massage)
@@ -22,8 +26,8 @@ def log(filename=None):
                 return result
             except Exception as e:
                 error_massage = (
-                    f"\nФункция {func.__name__}\n Тип ошибки:{e}\n"
-                    f"Входные параметры: {args}, {kwargs}"
+                    f"{func.__name__}\n error:{e}\n"
+                    f"Inputs: {args}, {kwargs}"
                 )
                 if filename:
                     with open(filename, "a", encoding="utf-8") as log_file:
@@ -37,7 +41,7 @@ def log(filename=None):
     return wrapper
 
 
-@log()
+@log(filename="../mylog.txt")
 def my_function(x, y):
     return x + y
 

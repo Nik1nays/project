@@ -41,7 +41,7 @@ def log(filename=None):
     return wrapper
 
 
-@log(filename="../mylog.txt")
+@log()
 def my_function(x, y):
     return x + y
 

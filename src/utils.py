@@ -1,6 +1,5 @@
 import json
 
-
 def read_json(path: str) -> list[dict] | dict:
     """Чтение json файла"""
     try:

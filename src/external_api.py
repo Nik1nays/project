@@ -19,7 +19,7 @@ def operation_amount(translations: list[dict] | dict) -> float:
             amount_cur = float(transaction.get('operationAmount').get('amount'))
             if currency == 'RUB':
                 amount = amount_cur
-                print(amount)
+                return (amount)
             else:
                 payload = {}
                 headers = {
@@ -28,7 +28,7 @@ def operation_amount(translations: list[dict] | dict) -> float:
                 response = requests.request("GET", f"https://api.apilayer.com/exchangerates_data/convert?to={'RUB'}&from={currency}&amount={amount_cur}", headers=headers, data=payload)
 
                 status_code = response.status_code
-                print(status_code)
+
                 if status_code == 200:
                     result = response.json()
                     print(result)
